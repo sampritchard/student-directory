@@ -1,4 +1,4 @@
-#**student-directory**
+# **student-directory**
 
 This is my _week 3_ challenge for **Makers Academy!**
 
