@@ -37,12 +37,19 @@ def print_header
   puts "The students of Villains Academy"
   puts "--------------"
 end
+
 #body method to print the student names and cohort
 #iterates through the students hash and prints 'student's name and cohort
 #each_with_index so the index of the name comes before it in a list
+#only prints names with "s" or "S" to start
+#removed the each_with_index as count is my index counter for this one
 def print(students)
-  students.each_with_index do |student, index|
-    puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
+  count = 1
+  students.each do |student| #index|
+    student[:name].capitalize!
+      next if student[:name][0] != "S" #|| student[:name][0] != "s"
+        puts "#{count} #{student[:name]} (#{student[:cohort]} cohort)"
+      count+=1
   end
 end
 
@@ -55,5 +62,4 @@ end
 students = input_students
 print_header
 print(students)
-print_specifc_letter_names(students)
 print_footer(students)
