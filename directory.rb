@@ -46,9 +46,11 @@ end
 def print(students)
   count = 1
   students.each do |student| #index|
-      next if student[:name].length > 12
+      while student[:name].length < 12
         puts "#{count} #{student[:name]} (#{student[:cohort]} cohort)"
       count+=1
+      break
+    end
   end
 end
 
