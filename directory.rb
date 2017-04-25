@@ -18,6 +18,8 @@ def input_students
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
+    height = gets.chomp
+    country = gets.chomp
   end
   #return the array of students
   students
@@ -38,8 +40,8 @@ students = [
 ]
 #header method
 def print_header
-  puts "The students of Villains Academy"
-  puts "--------------"
+  puts "The students of Villains Academy".center(70)
+  puts "--------------".center(70)
 end
 
 #body method to print the student names and cohort
@@ -51,7 +53,7 @@ def print(students)
   count = 1
   students.each do |student| # index|
       while student[:name].length < 12
-        puts "#{count}. #{student[:name]}. Height = #{student[:height]}cm. Place of Birth: #{student[:country]}. (#{student[:cohort]} cohort)"
+        puts "#{count}. #{student[:name]}. Height = #{student[:height]}cm. Place of Birth: #{student[:country]}. (#{student[:cohort]} cohort)".center(70)
       count+=1
       break
     end
@@ -61,7 +63,7 @@ end
 #finally, we print the total number of students
 #student.count counts the number of elements in the student array
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(70)
 end
 #nothing happens until we call the methods
 students = input_students
