@@ -7,19 +7,16 @@ def input_students
   students = []
   #gets the first name
   name = gets.chomp
-  puts "What is there height in centimetres please?"
-  height= gets.chomp
-  puts "And what country are they from?"
-  country = gets.chomp
+  #puts "And the cohort this student will be joining?"
+  #cohort = gets.chomp
   #while the name is NOT empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
-    students << {name: name, cohort: :november, height: height, country: country}
+    students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
-    height = gets.chomp
-    country = gets.chomp
+    #cohort = gets.chomp
   end
   #return the array of students
   students
@@ -40,30 +37,22 @@ students = [
 ]
 #header method
 def print_header
-  puts "The students of Villains Academy".center(70)
-  puts "--------------".center(70)
+  puts "The students of Villains Academy"
+  puts "--------------"
 end
-
 #body method to print the student names and cohort
 #iterates through the students hash and prints 'student's name and cohort
 #each_with_index so the index of the name comes before it in a list
-#very similar to the "S" character method, just skip over student if name length is bigger than 12
-#removed the each_with_index as count is my index counter for this one
 def print(students)
-  count = 1
-  students.each do |student| # index|
-      while student[:name].length < 12
-        puts "#{count}. #{student[:name]}. Height = #{student[:height]}cm. Place of Birth: #{student[:country]}. (#{student[:cohort]} cohort)".center(70)
-      count+=1
-      break
-    end
+  students.each_with_index do |student, index|
+    puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
 #finally, we print the total number of students
 #student.count counts the number of elements in the student array
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(70)
+  puts "Overall, we have #{students.count} great students"
 end
 #nothing happens until we call the methods
 students = input_students
