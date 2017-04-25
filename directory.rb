@@ -39,11 +39,13 @@ def print_header
 end
 #body method to print the student names and cohort
 #iterates through the students hash and prints 'student's name and cohort
+#each_with_index so the index of the name comes before it in a list
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each_with_index do |student, index|
+    puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
+
 #finally, we print the total number of students
 #student.count counts the number of elements in the student array
 def print_footer(students)
@@ -53,4 +55,5 @@ end
 students = input_students
 print_header
 print(students)
+print_specifc_letter_names(students)
 print_footer(students)
