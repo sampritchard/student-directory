@@ -7,10 +7,14 @@ def input_students
   students = []
   #gets the first name
   name = gets.chomp
+  puts "What is there height in centimetres please?"
+  height= gets.chomp
+  puts "And what country are they from?"
+  country = gets.chomp
   #while the name is NOT empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, height: height, country: country}
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
@@ -45,9 +49,9 @@ end
 #removed the each_with_index as count is my index counter for this one
 def print(students)
   count = 1
-  students.each do |student| #index|
+  students.each do |student| # index|
       while student[:name].length < 12
-        puts "#{count} #{student[:name]} (#{student[:cohort]} cohort)"
+        puts "#{count}. #{student[:name]}. Height = #{student[:height]}cm. Place of Birth: #{student[:country]}. (#{student[:cohort]} cohort)"
       count+=1
       break
     end
