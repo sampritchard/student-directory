@@ -41,13 +41,12 @@ end
 #body method to print the student names and cohort
 #iterates through the students hash and prints 'student's name and cohort
 #each_with_index so the index of the name comes before it in a list
-#only prints names with "s" or "S" to start
+#very similar to the "S" character method, just skip over student if name length is bigger than 12
 #removed the each_with_index as count is my index counter for this one
 def print(students)
   count = 1
   students.each do |student| #index|
-    student[:name].capitalize!
-      next if student[:name][0] != "S" #|| student[:name][0] != "s"
+      next if student[:name].length > 12
         puts "#{count} #{student[:name]} (#{student[:cohort]} cohort)"
       count+=1
   end
