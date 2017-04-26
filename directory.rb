@@ -52,7 +52,7 @@ end
 
 #method to print students in a particular cohort - removed symols though
 def print_may(students)
-  for student in students
+  for student in may_students
     if student[:cohort] == "May"
       puts "#{student[:name]}"
     end
@@ -78,8 +78,8 @@ def print_footer(students)
 end
 #nothing happens until we call the methods
 students = input_students
-print_header_selected
-print_may(students)
-print_header
-print(students)
-print_footer(students)
+print_header_selected if students.length > 0
+print_may(students) if students.length > 0
+print_header if students.length > 0
+print(students) if students.length > 0
+print_footer(students) if students.length > 0
