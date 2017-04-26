@@ -5,17 +5,19 @@ def input_students
   puts "To finish, just hit the return twice"
   #create an empty array
   students = []
+  #cohort = ["January", "February", "March", "April", "May", "June",
+  #"July", "August", "September", "October", "November", "December" ]
   #gets the first name
   name = gets.chomp
   puts "And the cohort this student will be joining?"
-  cohort = gets.chomp
+  cohort = gets.chomp.intern
   #while the name is NOT empty, repeat this code
   while !name.empty? && !cohort.empty? do
     students << {name: name, cohort: cohort}
       puts "Now we have #{students.count} students"
     name = gets.chomp
       puts "And cohort?"
-    cohort = gets.chomp
+    cohort = gets.chomp.intern #intern converts the cohort string to a symbol
   #  students << {name: name, cohort: :november}
   #  puts "Now we have #{students.count} students"
   #  name = gets.chomp
