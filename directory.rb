@@ -57,8 +57,11 @@ def print(students)
 end
 #finally, we print the total number of students
 #student.count counts the number of elements in the student array
+
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  s = "" #empty variable s
+  students.length == 1 ? s = "" : s ="s" #if 1 student, s = blank
+  puts "Overall, we have #{students.length} great student#{s}"
 end
 #nothing happens until we call the methods
 students = input_students
