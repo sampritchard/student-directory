@@ -8,19 +8,19 @@ def input_students #input_students method
   cohort_month = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"]
   #gets the first name
-  name = gets.chomp
+  name = gets.delete "\r\n"
   #gets the cohort they will be joining
   puts "And the cohort this student will be joining?"
   #intern converts the cohort name to a symbol rather than a string
-  cohort = gets.chomp.capitalize
+  cohort = gets.capitalize.delete "\r\n"
 
   #while the name is NOT empty, repeat this code
   while !name.empty? && !cohort.empty? do
     students << {name: name, cohort: cohort}
       puts "Now we have #{students.count} students"
-    name = gets.chomp
+    name = gets.delete "\r\n"
       puts "And cohort?"
-    cohort = gets.chomp.capitalize #intern converts the cohort string to a symbol
+    cohort = gets.capitalize.delete "\r\n"#intern converts the cohort string to a symbol
   end
   students
 end
