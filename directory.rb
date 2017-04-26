@@ -1,22 +1,34 @@
+@students = []
+
 def interactive_menu
-  students = []
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    selection = gets.chomp
-    case selection
-    when "1"
-      students = input_students
-    when "2"
-      print_header
-      print(students)
-      print_footer(students)
-    when "9"
-      exit
-    else
-      puts "I don't know what you meant, try again!"
-    end
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_students_list(@students)
+  print_footer(@students)
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "I don't know what you mean, try again"
   end
 end
 
@@ -26,7 +38,7 @@ def input_students #input_students method
   puts "Please enter the names of the students"
   puts "To finish, just hit the return twice"
   #create an empty array
-  students = []
+  @students = []
   #this will be used to check for spelling
   cohort_month = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"]
@@ -39,13 +51,13 @@ def input_students #input_students method
 
   #while the name is NOT empty, repeat this code
   while !name.empty? && !cohort.empty? do
-    students << {name: name, cohort: cohort}
-      puts "Now we have #{students.count} students"
+    @students << {name: name, cohort: cohort}
+      puts "Now we have #{@students.count} students"
     name = gets.delete "\r\n"
       puts "And cohort?"
     cohort = gets.capitalize.delete "\r\n"#intern converts the cohort string to a symbol
   end
-  students
+  @students
 end
 
 students = [
@@ -75,7 +87,7 @@ end
 
 #method to print students in a particular cohort - removed symols though
 def print_may(students)
-  for student in may_students
+  for student in @students
     if student[:cohort] == "May"
       puts "#{student[:name]}"
     end
@@ -85,8 +97,8 @@ end
 #body method to print the student names and cohort
 #iterates through the students hash and prints 'student's name and cohort
 #each_with_index so the index of the name comes before it in a list
-def print(students)
-  students.each_with_index do |student, index|
+def print_students_list(students)
+  @students.each_with_index do |student, index|
     puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
   end
 
@@ -96,8 +108,8 @@ end
 
 def print_footer(students)
   s = "" #empty variable s
-  students.length == 1 ? s = "" : s ="s" #if 1 student, s = blank
-  puts "Overall, we have #{students.length} great student#{s}"
+  @students.length == 1 ? s = "" : s ="s" #if 1 student, s = blank
+  puts "Overall, we have #{@students.length} great student#{s}"
 end
 #nothing happens until we call the methods
 
