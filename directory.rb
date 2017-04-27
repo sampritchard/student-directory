@@ -12,7 +12,7 @@ def save_students
 file.close
 end
 
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
@@ -21,10 +21,22 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -70,19 +82,19 @@ def input_students #input_students method
   cohort_month = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"]
   #gets the first name
-  name = gets.delete "\r\n"
+  name = STDIN.gets.delete "\r\n"
   #gets the cohort they will be joining
   puts "And the cohort this student will be joining?"
   #intern converts the cohort name to a symbol rather than a string
-  cohort = gets.capitalize.delete "\r\n"
+  cohort = STDIN.gets.capitalize.delete "\r\n"
 
   #while the name is NOT empty, repeat this code
   while !name.empty? && !cohort.empty? do
     @students << {name: name, cohort: cohort}
       puts "Now we have #{@students.count} students"
-    name = gets.delete "\r\n"
+    name = STDIN.gets.delete "\r\n"
       puts "And cohort?"
-    cohort = gets.capitalize.delete "\r\n"#intern converts the cohort string to a symbol
+    cohort = STDIN.gets.capitalize.delete "\r\n"#intern converts the cohort string to a symbol
   end
   @students
 end
@@ -140,6 +152,7 @@ def print_footer(students)
 end
 #nothing happens until we call the methods
 
+try_load_students
 interactive_menu
 print_header_selected if students.length > 0
 print_may(students) if students.length > 0
