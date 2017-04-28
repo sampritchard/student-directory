@@ -13,7 +13,9 @@ file.close
 end
 
 def load_students(filename = "students.csv")
+  #load the file for reading hence the "r"
   file = File.open("students.csv", "r")
+  #read all lines in the array and iterate over it
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
@@ -78,24 +80,19 @@ def input_students #input_students method
   puts "To finish, just hit the return twice"
   #create an empty array
   @students = []
-  #this will be used to check for spelling
-  cohort_month = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"]
   #gets the first name
   name = STDIN.gets.delete "\r\n"
   #gets the cohort they will be joining
   puts "And the cohort this student will be joining?"
-  #intern converts the cohort name to a symbol rather than a string
   cohort = STDIN.gets.capitalize.delete "\r\n"
-
   #while the name is NOT empty, repeat this code
-  while !name.empty? && !cohort.empty? do
-    @students << {name: name, cohort: cohort}
-      puts "Now we have #{@students.count} students"
-    name = STDIN.gets.delete "\r\n"
-      puts "And cohort?"
-    cohort = STDIN.gets.capitalize.delete "\r\n"#intern converts the cohort string to a symbol
-  end
+    while !name.empty? && !cohort.empty? do
+      @students << {name: name, cohort: cohort}
+        puts "Now we have #{@students.count} students"
+          name = STDIN.gets.delete "\r\n"
+        puts "And cohort?"
+          cohort = STDIN.gets.capitalize.delete "\r\n"
+    end
   @students
 end
 
@@ -140,7 +137,6 @@ def print_students_list(students)
   @students.each_with_index do |student, index|
     puts "#{index+1} #{student[:name]} (#{student[:cohort]} cohort)"
   end
-
 end
 #finally, we print the total number of students
 #student.count counts the number of elements in the student array
@@ -148,10 +144,10 @@ end
 def print_footer(students)
   s = "" #empty variable s
   @students.length == 1 ? s = "" : s ="s" #if 1 student, s = blank
+  puts "--------------"
   puts "Overall, we have #{@students.length} great student#{s}"
 end
 #nothing happens until we call the methods
-
 try_load_students
 interactive_menu
 print_header_selected if students.length > 0
