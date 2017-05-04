@@ -1,15 +1,22 @@
 @students = []
 
 def save_students
+  p "Which file do you want to save these changes to?"
+  filename = STDIN.gets.chomp
+  if File.exists?(filename)
   #open the file for writing
-  file = File.open("students.csv", "w")
+    file = File.open("filename", "w")
   #iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student [:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student [:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
+    p "These changes have been saved"
+    file.close
+  else
+    p "That file doesn't seem to exist.."
   end
-file.close
 end
 
 def load_students(filename = "students.csv")
