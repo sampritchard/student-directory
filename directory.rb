@@ -1,17 +1,37 @@
 @students = []
 
+def input_students #input_students method
+  puts "Please enter the names of the students"
+  puts "To finish, just hit the return twice"
+  #create an empty array
+  @students = []
+  #gets the first name
+  name = STDIN.gets.delete "\r\n"
+  #gets the cohort they will be joining
+  puts "And the cohort this student will be joining?"
+  cohort = STDIN.gets.capitalize.delete "\r\n"
+  #while the name is NOT empty, repeat this code
+    while !name.empty? && !cohort.empty? do
+      @students << {name: name, cohort: cohort}
+        puts "Now we have #{@students.count} students"
+          name = STDIN.gets.delete "\r\n"
+        puts "And cohort?"
+          cohort = STDIN.gets.capitalize.delete "\r\n"
+    end
+  @students
+end
+
 def save_students
   p "Which file do you want to save these changes to?"
   filename = STDIN.gets.chomp
   if File.exists?(filename)
-  #open the file for writing
+    #open the file for writing
     file = File.open("filename", "w")
-  #iterate over the array of students
-    @students.each do |student|
-      student_data = [student[:name], student [:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
-    end
+      @students.each do |student|
+        student_data = [student[:name], student [:cohort]]
+          csv_line = student_data.join(",")
+        file.puts csv_line
+      end
     p "These changes have been saved"
     file.close
   else
@@ -23,24 +43,24 @@ def load_students(filename = "students.csv")
   #load the file for reading hence the "r"
   file = File.open("students.csv", "r")
   #read all lines in the array and iterate over it
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
-  end
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+        @students << {name: name, cohort: cohort.to_sym}
+    end
   file.close
 end
 
 def try_load_students
   filename = ARGV.first
-  if filename.nil?
-    load_students()
-  elsif File.exists?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else
-    puts "Sorry, #{filename} doesn't exist."
-    exit
-  end
+    if filename.nil?
+      load_students()
+    elsif File.exists?(filename)
+      load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+    else
+      puts "Sorry, #{filename} doesn't exist."
+      exit
+    end
 end
 
 def interactive_menu
@@ -85,54 +105,15 @@ def process(selection)
   end
 end
 
-
-#all the students put into an array
-def input_students #input_students method
-  puts "Please enter the names of the students"
-  puts "To finish, just hit the return twice"
-  #create an empty array
-  @students = []
-  #gets the first name
-  name = STDIN.gets.delete "\r\n"
-  #gets the cohort they will be joining
-  puts "And the cohort this student will be joining?"
-  cohort = STDIN.gets.capitalize.delete "\r\n"
-  #while the name is NOT empty, repeat this code
-    while !name.empty? && !cohort.empty? do
-      @students << {name: name, cohort: cohort}
-        puts "Now we have #{@students.count} students"
-          name = STDIN.gets.delete "\r\n"
-        puts "And cohort?"
-          cohort = STDIN.gets.capitalize.delete "\r\n"
-    end
-  @students
-end
-
-students = [
-{name: "Dr Hannibal Lecter", cohort: :november},
-{name: "Darth Vader", cohort: :november},
-{name: "Nurse Ratched", cohort: :november},
-{name: "Michael Corleone", cohort: :november},
-{name: "Alex DeLarge", cohort: :november},
-{name: "The Wicked Witch of the West", cohort: :november},
-{name: "Terminator", cohort: :november},
-{name: "Freddy Krueger", cohort: :november},
-{name: "The Joker", cohort: :november},
-{name: "Joffrey Baratheon", cohort: :november},
-{name: "Norman Bates", cohort: :november}
-]
-#header method
 def print_header
   puts "The students of Villains Academy"
   puts "--------------"
 end
 
-#header method for May
 def print_header_selected
   puts "The students of Villains Academy for May"
   puts "--------------"
 end
-
 #method to print students in a particular cohort - removed symols though
 def print_may(students)
   for student in @students
@@ -162,8 +143,3 @@ end
 #nothing happens until we call the methods
 try_load_students
 interactive_menu
-print_header_selected if students.length > 0
-print_may(students) if students.length > 0
-print_header if students.length > 0
-print(students) if students.length > 0
-print_footer(students) if students.length > 0
